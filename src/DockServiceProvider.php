@@ -2,9 +2,9 @@
 
 namespace NothingWorks\Dock;
 
+use NothingWorks\Dock\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use NothingWorks\Dock\Commands\DockCommand;
 
 class DockServiceProvider extends PackageServiceProvider
 {
@@ -17,9 +17,6 @@ class DockServiceProvider extends PackageServiceProvider
          */
         $package
             ->name('nothing-works-dock')
-            ->hasConfigFile()
-            ->hasViews()
-            ->hasMigration('create_nothing-works-dock_table')
-            ->hasCommand(DockCommand::class);
+            ->hasCommand(InstallCommand::class);
     }
 }
