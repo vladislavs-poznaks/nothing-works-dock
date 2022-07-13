@@ -23,40 +23,54 @@ We highly appreciate you sending us a postcard from your hometown, mentioning wh
 You can install the package via composer:
 
 ```bash
-composer require nothing-works/nothing-works-dock
+composer require nothing-works/dock
 ```
 
-You can publish and run the migrations with:
+You can run the docker-compose.yml installation via artisan:
 
 ```bash
-php artisan vendor:publish --tag="nothing-works-dock-migrations"
-php artisan migrate
+php artisan dock:install
 ```
 
-You can publish the config file with:
+Optionally, you can publish and adjust dockerfiles via artisan if needed:
 
 ```bash
-php artisan vendor:publish --tag="nothing-works-dock-config"
-```
-
-This is the contents of the published config file:
-
-```php
-return [
-];
-```
-
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="nothing-works-dock-views"
+php artisan dock:publish
 ```
 
 ## Usage
 
-```php
-$dock = new NothingWorks\Dock();
-echo $dock->echoPhrase('Hello, NothingWorks!');
+You can run the server:
+
+```bash
+docker compose up -d nginx
+```
+
+You can run a specific container with related commands:
+
+```bash
+docker compose run --rm <CONTAINER> command
+```
+
+Available containers: 
+ - **composer**
+ - **artisan**
+ - **phpunit**
+ - **npm**
+
+### Examples:
+
+```bash
+docker compose run --rm composer --version
+```
+```bash
+docker compose run --rm artisan inspire
+```
+```bash
+docker compose run --rm phpunit
+```
+```bash
+docker compose run --rm npm run prod
 ```
 
 ## Testing
@@ -85,3 +99,13 @@ Please review [our security policy](../../security/policy) on how to report secu
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+
+### ROADMAP
+
+- Add testing DB to mysql container
+
+- Update binary to be able:
+* run docker-compose commands via /vendor/bin/dock
+* run docker(?) commands via /vendor/bin/dock
+* run composer & artisan containers prior docker-compose.yml creation (containers created on the fly, after command is executed - removed)
+
