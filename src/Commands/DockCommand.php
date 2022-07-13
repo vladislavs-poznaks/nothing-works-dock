@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace NothingWorks\Dock\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class DockCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'nothing-works-dock';
 
     public $description = 'My command';
 
