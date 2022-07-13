@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+# Defines arguments
+ARGS=("$@")
+
+# Check if docker-compose.yml has been created
+if [ ! -f ./docker-compose.yml ]; then
+  echo "File docker-compose.yml has not been created, run 'artisan dock:install'"
+  exit 1
+fi
+
+# Check for arguments
+if [ ${#ARGS[@]} -eq 0 ]; then
+  echo "There are no arguments"
+  exit 1
+fi
+
+# Initially assuming that some particular container will be run
+COMMAND=(docker compose run --rm)
+
+case "$1" in
+  composer) COMMAND+=(composer) ;;
+  artisan) COMMAND+=(artisan) ;;
+  phpunit) COMMAND+=(phpunit) ;;
+  npm) COMMAND+=(npm) ;;
+  *)
+    COMMAND=(docker compose)
+    # Proxies to docker compose
+    "${COMMAND[@]}" "${ARGS[@]}"
+  ;;
+esac
+
+# Proxies to a specific container
+"${COMMAND[@]}" "${ARGS[@]:1}"
