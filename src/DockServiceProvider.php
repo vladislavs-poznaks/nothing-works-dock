@@ -3,6 +3,7 @@
 namespace NothingWorks\Dock;
 
 use NothingWorks\Dock\Commands\InstallCommand;
+use NothingWorks\Dock\Commands\PublishCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -17,6 +18,7 @@ class DockServiceProvider extends PackageServiceProvider
          */
         $package
             ->name('nothing-works-dock')
-            ->hasCommand(InstallCommand::class);
+            ->hasCommand(InstallCommand::class)
+            ->hasCommand(PublishCommand::class);
     }
 }
