@@ -19,10 +19,26 @@ fi
 COMMAND=(docker compose run --rm)
 
 case "$1" in
-  composer) COMMAND+=(composer) ;;
-  artisan) COMMAND+=(artisan) ;;
-  phpunit) COMMAND+=(phpunit) ;;
-  npm) COMMAND+=(npm) ;;
+  composer)
+      COMMAND+=(composer)
+      # Proxies to composer container
+      "${COMMAND[@]}" "${ARGS[@]:1}"
+  ;;
+  artisan)
+      COMMAND+=(artisan)
+      # Proxies to artisan container
+      "${COMMAND[@]}" "${ARGS[@]:1}"
+  ;;
+  phpunit)
+      COMMAND+=(phpunit)
+      # Proxies to phpunit container
+      "${COMMAND[@]}" "${ARGS[@]:1}"
+  ;;
+  npm)
+      COMMAND+=(npm)
+      # Proxies to npm container
+      "${COMMAND[@]}" "${ARGS[@]:1}"
+  ;;
   *)
     COMMAND=(docker compose)
     # Proxies to docker compose
@@ -30,5 +46,4 @@ case "$1" in
   ;;
 esac
 
-# Proxies to a specific container
-"${COMMAND[@]}" "${ARGS[@]:1}"
+exit 0
