@@ -80,7 +80,7 @@ class InstallCommand extends Command
     }
 
     /**
-     * Gather the desired Sail services using a Symfony menu.
+     * Gather the desired Dock services using a Symfony menu.
      *
      */
     protected function gatherServicesWithMenu()

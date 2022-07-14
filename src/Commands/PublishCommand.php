@@ -27,13 +27,13 @@ class PublishCommand extends Command
      */
     public function handle()
     {
-        $this->call('vendor:publish', ['--tag' => 'stack-docker']);
+        $this->call('vendor:publish', ['--tag' => 'dock-docker']);
 
         file_put_contents(
             $this->laravel->basePath('docker-compose.yml'),
             str_replace(
                 [
-                    './vendor/coffie/stack/.docker',
+                    './vendor/nothing-works/dock/.docker',
                 ],
                 [
                     './.docker',
