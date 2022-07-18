@@ -20,13 +20,13 @@ We highly appreciate you sending us a postcard from your hometown, mentioning wh
 
 ## Installation
 
-###You can create alias for `dock` binary:
+#### You can create alias for `dock` binary:
 
 ```bash
 alias dock=./vendor/nothing-works/dock/bin/dock
 ```
 
-###You can install the package via composer:
+#### You can install the package via composer:
 ```bash
 docker run --rm --interactive --tty --volume $PWD:/app composer require nothing-works/dock
 ```
@@ -53,7 +53,7 @@ dock php artisan dock:publish
 
 ## Usage
 
-###You can run the server:
+#### You can run the server:
 
 ```bash
 dock up -d nginx
@@ -63,7 +63,7 @@ or
 docker compose up -d nginx
 ```
 
-###You can run a specific container with related commands:
+#### You can run a specific container with related commands:
 
 ```bash
 dock <CONTAINER> command
