@@ -1,13 +1,55 @@
 #!/usr/bin/env bash
 
+function run_composer() {
+    if [ -f ./docker-compose.yml ]; then
+        COMMAND+=(composer)
+        "${COMMAND[@]}" "${ARGS[@]:1}"
+    else
+        COMMAND=(docker run --rm --interactive --tty --volume $PWD:/app composer)
+        "${COMMAND[@]}" "${ARGS[@]:1}"
+    fi
+
+    exit 0
+}
+
+function run_artisan() {
+    if [ -f ./docker-compose.yml ]; then
+        COMMAND+=(artisan)
+        "${COMMAND[@]}" "${ARGS[@]:1}"
+    else
+        COMMAND=(docker run --rm --interactive --tty --volume $PWD:/app -w /app php:cli-alpine php artisan)
+        "${COMMAND[@]}" "${ARGS[@]:1}"
+    fi
+
+    exit 0
+}
+
+function run_phpunit() {
+    if [ -f ./docker-compose.yml ]; then
+        COMMAND+=(phpunit)
+        "${COMMAND[@]}" "${ARGS[@]:1}"
+    else
+        COMMAND=(docker run --rm --interactive --tty --volume $PWD:/app -w /app php:cli-alpine ./vendor/bin/phpunit)
+        "${COMMAND[@]}" "${ARGS[@]:1}"
+    fi
+
+    exit 0
+}
+
+function run_npm() {
+    if [ -f ./docker-compose.yml ]; then
+        COMMAND+=(npm)
+        "${COMMAND[@]}" "${ARGS[@]:1}"
+    else
+        COMMAND=(docker run --rm --interactive --tty --volume $PWD:/app -w /app node:alpine npm)
+        "${COMMAND[@]}" "${ARGS[@]:1}"
+    fi
+
+    exit 0
+}
+
 # Defines arguments
 ARGS=("$@")
-
-# Check if docker-compose.yml has been created
-if [ ! -f ./docker-compose.yml ]; then
-  echo "File docker-compose.yml has not been created, run 'artisan dock:install'"
-  exit 1
-fi
 
 # Check for arguments
 if [ ${#ARGS[@]} -eq 0 ]; then
@@ -19,29 +61,24 @@ fi
 COMMAND=(docker compose run --rm)
 
 case "$1" in
-  composer)
-      COMMAND+=(composer)
-      # Proxies to composer container
-      "${COMMAND[@]}" "${ARGS[@]:1}"
-  ;;
-  artisan)
-      COMMAND+=(artisan)
-      # Proxies to artisan container
-      "${COMMAND[@]}" "${ARGS[@]:1}"
-  ;;
-  phpunit)
-      COMMAND+=(phpunit)
-      # Proxies to phpunit container
-      "${COMMAND[@]}" "${ARGS[@]:1}"
-  ;;
-  npm)
-      COMMAND+=(npm)
-      # Proxies to npm container
-      "${COMMAND[@]}" "${ARGS[@]:1}"
-  ;;
+  # Proxies to composer container
+  composer)     run_composer;;
+  # Proxies to artisan container
+  artisan)      run_artisan;;
+  # Proxies to phpunit container
+  phpunit)      run_phpunit;;
+  # Proxies to npm container
+  npm)          run_npm;;
+  # Proxies to docker compose
   *)
     COMMAND=(docker compose)
-    # Proxies to docker compose
+
+    # Check if docker-compose.yml has been created
+    if [ ! -f ./docker-compose.yml ]; then
+      echo "File docker-compose.yml has not been created, run './vendor/nothing-works/dock/bin/dock artisan dock:install'"
+      exit 1
+    fi
+
     "${COMMAND[@]}" "${ARGS[@]}"
   ;;
 esac
