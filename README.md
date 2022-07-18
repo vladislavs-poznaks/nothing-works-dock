@@ -20,14 +20,27 @@ We highly appreciate you sending us a postcard from your hometown, mentioning wh
 
 ## Installation
 
-You can install the package via composer:
+####You can create alias for `dock` binary:
 
+```bash
+alias dock=./vendor/nothing-works/dock/bin/dock
+```
+
+####You can install the package via composer:
+```bash
+docker run --rm --interactive --tty --volume $PWD:/app composer require nothing-works/dock
+```
+or if you prefer composer on your machine
 ```bash
 composer require nothing-works/dock
 ```
 
-You can run the docker-compose.yml installation via artisan:
+####You can run the docker-compose.yml installation via artisan:
 
+```bash
+dock php artisan dock:install
+```
+or if you prefer php on your machine
 ```bash
 php artisan dock:install
 ```
@@ -35,19 +48,27 @@ php artisan dock:install
 Optionally, you can publish and adjust dockerfiles via artisan if needed:
 
 ```bash
-php artisan dock:publish
+dock php artisan dock:publish
 ```
 
 ## Usage
 
-You can run the server:
+####You can run the server:
 
+```bash
+dock up -d nginx
+```
+or
 ```bash
 docker compose up -d nginx
 ```
 
-You can run a specific container with related commands:
+####You can run a specific container with related commands:
 
+```bash
+dock <CONTAINER> command
+```
+or
 ```bash
 docker compose run --rm <CONTAINER> command
 ```
@@ -61,14 +82,33 @@ Available containers:
 ### Examples:
 
 ```bash
+dock composer --version
+```
+or
+```bash
 docker compose run --rm composer --version
 ```
+---
+```bash
+dock artisan inspire
+```
+or
 ```bash
 docker compose run --rm artisan inspire
 ```
+---
+```bash
+dock phpunit
+```
+or
 ```bash
 docker compose run --rm phpunit
 ```
+---
+```bash
+dock npm run prod
+```
+or
 ```bash
 docker compose run --rm npm run prod
 ```
