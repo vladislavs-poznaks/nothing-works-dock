@@ -20,13 +20,13 @@ We highly appreciate you sending us a postcard from your hometown, mentioning wh
 
 ## Installation
 
-####You can create alias for `dock` binary:
+###You can create alias for `dock` binary:
 
 ```bash
 alias dock=./vendor/nothing-works/dock/bin/dock
 ```
 
-####You can install the package via composer:
+###You can install the package via composer:
 ```bash
 docker run --rm --interactive --tty --volume $PWD:/app composer require nothing-works/dock
 ```
@@ -35,7 +35,7 @@ or if you prefer composer on your machine
 composer require nothing-works/dock
 ```
 
-####You can run the docker-compose.yml installation via artisan:
+###You can run the docker-compose.yml installation via artisan:
 
 ```bash
 dock php artisan dock:install
@@ -53,7 +53,7 @@ dock php artisan dock:publish
 
 ## Usage
 
-####You can run the server:
+###You can run the server:
 
 ```bash
 dock up -d nginx
@@ -63,7 +63,7 @@ or
 docker compose up -d nginx
 ```
 
-####You can run a specific container with related commands:
+###You can run a specific container with related commands:
 
 ```bash
 dock <CONTAINER> command
@@ -139,13 +139,3 @@ Please review [our security policy](../../security/policy) on how to report secu
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
-
-### ROADMAP
-
-- Add testing DB to mysql container
-
-- Update binary to be able:
-* run docker-compose commands via /vendor/bin/dock
-* run docker(?) commands via /vendor/bin/dock
-* run composer & artisan containers prior docker-compose.yml creation (containers created on the fly, after command is executed - removed)
-
